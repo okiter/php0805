@@ -1,0 +1,40 @@
+1. 项目是基于thinkphp, 那么必须安装thnkphp的规范.
+    http://document.thinkphp.cn/manual_3_2.html#develop_standard
+2. 表中字段规范:
+   name:   表示名称. 例如: 品牌名称, 商品名称
+   intro:  表示简介
+   sort:   表示排序   数字,  数字越小,越靠前  -1
+   status: 表示状态   -1: 删除  0:不在前台显示,只在当前列表中显示   1: 正常
+
+   删除一行数据:
+   update 表名 set status = -1 where id  = xx
+   显示列表:
+   select * from 表名  where status>-1
+   在前台显示数据:
+   select * from 表名  where status=1
+
+
+
+
+3. js都写在页面最后...
+
+
+4. 为了配置代码生成器. 在创建表时的规范:
+    a. 表名和控制器的名字必须一致
+      例如:
+      表        控制器
+      brand====>BrandController
+      goods_type====>GoodsTypeController
+    b.表必须有注释,该注释来说当前表是什么
+
+    c.通过字段的注释,说明当前字段对应的表单元素类型
+      例如:
+        create table brand(
+        id smallint unsigned  primary key auto_increment,
+        name varchar(50) not null default '' comment '名称',
+        site_url varchar(50) not null default '' comment '网址',
+        logo varchar(50) not null default '' comment 'LOGO@file',
+        intro text comment '简介@textarea',
+        sort tinyint  not null default 20 comment '排序',
+        status tinyint not null default 1 comment '状态@radio|1=是&0=否'
+        )engine=MyISAM comment '品牌'
