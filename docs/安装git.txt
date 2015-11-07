@@ -96,6 +96,18 @@ git push -u origin master //推送此次修改
     git branch;
 
 
+5. 将当前分支推到完成
+git push -u  origin  指定的分支
+
+6. 切换到主分支并且将其他分支合并到主分支上. 并且将合并过来的代码推到主分支上
+git checkout master
+git merge  其他分支
+git push -u  origin master
+
+
+7. 刚到公司,需要将公司现有的代码拷贝下来
+git clone  git的地址     文件夹中
+
 
 
 

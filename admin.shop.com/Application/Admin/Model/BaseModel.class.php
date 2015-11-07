@@ -50,4 +50,14 @@ class BaseModel extends Model
         $this->where(array('id' => array('in', $id)));
         return parent::save($data);  //update supplier set  status = -1  ,  name = concat(name,'_del' ) where id = 6;
     }
+
+
+
+    /**
+     * 获取status=1并且通过sort排序的数据
+     * @return mixed
+     */
+    public function getShowList(){
+        return $this->where(array('status'=>1))->order('sort')->select();
+    }
 }
