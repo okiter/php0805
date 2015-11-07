@@ -10,11 +10,9 @@
             <tr>
                 <td class="label"><?php echo $field['comment']?></td>
                 <td>
-                    <!---
-                      //目的: 根据每个字段的注解中指定的表单元素的类型,生成不同的表单元素
-                       1. 获取每个注解中的表单元素类型
-                    -->
                     <?php
+                        //目的: 根据每个字段的注解中指定的表单元素的类型,生成不同的表单元素
+                        //1. 获取每个注解中的表单元素类型
                        if($field['input_type']=='text'){
                             echo "<textarea name=\"{$field['field']}\" cols=\"60\" rows=\"4\">{\${$field['field']}}</textarea>\r\n";
                        }elseif($field['input_type']=='file'){

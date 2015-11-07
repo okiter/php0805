@@ -5,7 +5,6 @@
  * Date: 2015/11/2
  * Time: 10:55
  */
-
 namespace Admin\Controller;
 
 
@@ -62,10 +61,18 @@ class BaseController extends Controller
             }
             $this->error('操作失败!' . showErrors($this->model));
         } else {
+            $this->_before_edit_view();
             $this->assign('meta_title', '添加' . $this->meta_title);
             $this->display('edit');
         }
     }
+
+    /**
+     * 主要是被子类覆盖..  在编辑页面展示之前向编辑页面上分配数据
+     */
+    protected function _before_edit_view(){
+    }
+
 
     public function edit($id)
     {
@@ -85,6 +92,9 @@ class BaseController extends Controller
             $this->assign($row);
             //>>4.选择视图页面显示
             $this->assign('meta_title', '编辑' . $this->meta_title);
+            //>>5.调用钩子函数
+            $this->_before_edit_view();
+
             $this->display('edit');
         }
     }
