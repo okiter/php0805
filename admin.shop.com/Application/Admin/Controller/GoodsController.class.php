@@ -23,6 +23,5 @@ class GoodsController extends BaseController
         $supplierModel = D('Supplier');
         $suppliers = $supplierModel->getShowList();
         $this->assign('suppliers',$suppliers);
-
     }
 }

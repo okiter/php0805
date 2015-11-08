@@ -27,19 +27,15 @@ class GoodsModel extends BaseModel
 
     public function add(){
         $this->startTrans();//开启事务
-
         //>>1.处理请求中的商品状态 转换为 一个整数
-        $goods_status = 0;
-        foreach($this->data['goods_status'] as $v){
-            $goods_status = $goods_status | $v;   //相与之后得到状态
-        }
-        $this->data['goods_status'] = $goods_status;
+         $this->handleGoodsStatus();
+        //>>2.将请求中的内容保存到数据库中
         $id = parent::add();  //一定要调用parent上的add,  因为先保存后才有id的值
         if($id===false){
             $this->rollback();
             return false;
         }
-        //>>2.准备货号 并且将货号更新到数据库中       日期+八位的id   20151107000000id
+        //>>3.准备货号 并且将货号更新到数据库中       日期+八位的id   20151107000000id
         $sn = date('Ymd').str_pad($id, 8, "0", STR_PAD_LEFT);
         $result = parent::save(array('sn'=>$sn,'id'=>$id));
         if($result===false){
@@ -50,5 +46,28 @@ class GoodsModel extends BaseModel
         $this->commit();
         return $id;  //保存成功之后返回id
     }
+
+
+
+    public function save(){
+        //>>1.计算商品状态
+        $this->handleGoodsStatus();
+        //>>2.进行更新
+        return parent::save();
+    }
+
+    /**
+     * 请求请求中的商品状态的值, 计算出一个整数值代表商品状态
+     */
+    private function handleGoodsStatus()
+    {
+        //>>1.处理请求中的商品状态 转换为 一个整数
+        $goods_status = 0;
+        foreach ($this->data['goods_status'] as $v) {
+            $goods_status = $goods_status | $v;   //相与之后得到状态
+        }
+        $this->data['goods_status'] = $goods_status;
+    }
+
 
 }
