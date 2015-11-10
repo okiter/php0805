@@ -131,13 +131,15 @@
             </tr>
         </table>
         <table cellspacing="1" cellpadding="3" width="100%"  style="display: none">
+            <volist name="memberLevels" id="memberLevel">
             <tr>
-                <td class="label">会员价格</td>
+                <td class="label">{$memberLevel.name}</td>
                 <td>
-                    <input type="text" name="sort" maxlength="60" value="{$sort|default=20}"> <span
+                    <input type="text" name="memberPrice[{$memberLevel.id}]" maxlength="60" value="{$goodsMemberPrice[$memberLevel['id']]}"> <span
                         class="require-field">*</span>
                 </td>
             </tr>
+            </volist>
         </table>
         <table cellspacing="1" cellpadding="3" width="100%"  style="display: none">
             <tr>

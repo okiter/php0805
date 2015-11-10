@@ -57,7 +57,7 @@ class BaseModel extends Model
      * 获取status=1并且通过sort排序的数据
      * @return mixed
      */
-    public function getShowList($wheres=array(),$field="*"){
+    public function getShowList($field="*",$wheres=array()){
         $wheres['status'] = 1;
         return $this->where($wheres)->field($field)->order('sort')->select();
     }

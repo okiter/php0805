@@ -67,9 +67,44 @@ class GoodsModel extends BaseModel
             return false;
         }
 
+        //>>7.处理商品会员价格
+        $result = $this->handleGoodsMemberPrice($id,$requestData['memberPrice']);
+        if($result===false){
+            return false;
+        }
+
 
         $this->commit();
         return $id;  //保存成功之后返回id
+    }
+
+    /**
+     * @param $goods_id
+     * @param $memberPrice
+     *        ["memberPrice"] => array(3) {
+                    [1] => string(3) "300"       级别id=>价格
+                    [2] => string(3) "200"
+                    [3] => string(3) "100"
+                }
+     */
+    private function handleGoodsMemberPrice($goods_id,$memberPrices){
+        //>>1.准备goods_member_price表中需要的数据
+        $rows = array();
+         foreach($memberPrices as $member_level_id=>$price){
+               $rows[] = array('goods_id'=>$goods_id,'member_level_id'=>$member_level_id,'price'=>$price);
+         }
+        //>>2.再将rows保存到goods_member_price表中
+        if(!empty($rows)){
+            $goodsMemberPriceModel = M('GoodsMemberPrice');
+            //先删除后添加
+            $goodsMemberPriceModel->where(array('goods_id'=>$goods_id))->delete();
+            $result = $goodsMemberPriceModel->addAll($rows);
+            if($result===false){
+                $this->error = '保存会员价格失败!';
+                $this->rollback();
+                return false;
+            }
+        }
     }
 
     /**
@@ -155,6 +190,13 @@ class GoodsModel extends BaseModel
         if($result===false){
             return false;
         }
+
+        //>>5.处理会员价格
+        $result = $this->handleGoodsMemberPrice($this->data['id'],$requestData['memberPrice']);
+        if($result===false){
+            return false;
+        }
+
 
         //>>3.进行更新
         $result = parent::save();

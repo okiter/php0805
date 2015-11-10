@@ -45,7 +45,7 @@ class ArticleController extends BaseController
         $articleModel = D('Article');
         $wheres = array();
         $wheres['name'] = array('like',"%".$keyword."%");
-        $rows = $articleModel->getShowList($wheres,"id,name");
+        $rows = $articleModel->getShowList("id,name",$wheres);
         $this->ajaxReturn($rows);
     }
 
