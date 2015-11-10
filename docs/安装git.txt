@@ -120,6 +120,13 @@ $ git merge origin/master  //把更新的内容合并到本地分支/master
 
 
 
+假设本地的代码没有github远程的代码新. 需要先从远程拉下最新的代码
+git pull
+拉下来的时候需要加上注释,说明远程的代码和本地的代码进行合并.
+
+合并之后再将本地的代码推送到远程
+git push -u  origin goods
+
 
 
 
