@@ -11,6 +11,7 @@ return array(
         '__GOODS__' => "http://itsource-goods.b0.upaiyun.com", // goods又拍云空间中的地址
         '__TREEGRID__' =>  WEB_URL.'/Public/Admin/treegrid',
         '__ZTREE__' =>  WEB_URL.'/Public/Admin/ztree',
+        '__UEDITOR__' =>  WEB_URL.'/Public/Admin/ueditor',
 
     )
 );

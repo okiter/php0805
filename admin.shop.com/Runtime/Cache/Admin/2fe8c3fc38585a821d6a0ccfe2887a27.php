@@ -116,7 +116,7 @@
                 <td>
                     <input type="file" name="upload-logo" id="upload-logo" maxlength="60">
                     <input type="hidden" class="logo" name="logo" value="<?php echo ($logo); ?>">
-                    <div class="upload-img-box" style="display: <?php echo ($logo?'block':'none'); ?>">
+                    <div class="upload-img-box upload-logo-box" style="display: <?php echo ($logo?'block':'none'); ?>">
                         <div class="upload-pre-item">
                             <img src="http://itsource-goods.b0.upaiyun.com/<?php echo ($logo); ?>">
                         </div>
@@ -141,10 +141,8 @@
         </table>
         <table cellspacing="1" cellpadding="3" width="100%" style="display: none">
             <tr>
-                <td class="label">商品描述</td>
                 <td>
-                    <input type="text" name="sort" maxlength="60" value="<?php echo ((isset($sort) && ($sort !== ""))?($sort):20); ?>"> <span
-                        class="require-field">*</span>
+                    <textarea name="intro" id="intro"><?php echo ($intro); ?></textarea>
                 </td>
             </tr>
         </table>
@@ -166,21 +164,51 @@
                 </td>
             </tr>
         </table>
+        <style type="text/css">
+            .upload-pre-item{
+                position: relative;
+            }
+            .upload-pre-item a{
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                display: block;
+                background-color: red;
+            }
+        </style>
         <table cellspacing="1" cellpadding="3" width="100%"  style="display: none">
             <tr>
-                <td class="label">商品相册</td>
                 <td>
-                    <input type="text" name="sort" maxlength="60" value="<?php echo ((isset($sort) && ($sort !== ""))?($sort):20); ?>"> <span
-                        class="require-field">*</span>
+                    <div class="upload-img-box upload-gallery-box">
+                        <?php if(is_array($goodsGallerys)): $i = 0; $__LIST__ = $goodsGallerys;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$goodsGallery): $mod = ($i % 2 );++$i;?><div class="upload-pre-item" style="display: inline-block">
+                                <img src="http://itsource-goods.b0.upaiyun.com/<?php echo ($goodsGallery["path"]); ?>!m">
+                                <a dbid="<?php echo ($goodsGallery["id"]); ?>" href="javascript:;">X</a>
+                            </div><?php endforeach; endif; else: echo "" ;endif; ?>
+                    </div>
+                </td>
+            </tr>
+                <td>
+                   <input type="file" id="upload-gallery">(支持批量上传)
                 </td>
             </tr>
         </table>
         <table cellspacing="1" cellpadding="3" width="100%"  style="display: none">
             <tr>
-                <td class="label">关联文章</td>
-                <td>
-                    <input type="text" name="sort" maxlength="60" value="<?php echo ((isset($sort) && ($sort !== ""))?($sort):20); ?>"> <span
-                        class="require-field">*</span>
+                <td style="text-align: left">搜索文章：<input type="text" name="keyword" class="keyword"/><input class="search_article" type="button" value="搜索"/></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td style="text-align: left;width: 50%">
+                    <select multiple="multiple" class="left_select" style="width: 80%;height: 300px">
+                    </select>
+                </td>
+                <td  style="text-align: left">
+                    <div class="selectedOption">
+                        <?php if(is_array($goodsAritcles)): $i = 0; $__LIST__ = $goodsAritcles;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$goodsAritcle): $mod = ($i % 2 );++$i;?><input type="hidden" name="article_id[]" value="<?php echo ($goodsAritcle["id"]); ?>"/><?php endforeach; endif; else: echo "" ;endif; ?>
+                    </div>
+                    <select multiple="multiple" class="right_select" style="width: 80%;height: 300px">
+                        <?php if(is_array($goodsAritcles)): $i = 0; $__LIST__ = $goodsAritcles;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$goodsAritcle): $mod = ($i % 2 );++$i;?><option value="<?php echo ($goodsAritcle["id"]); ?>"><?php echo ($goodsAritcle["name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
+                    </select>
                 </td>
             </tr>
         </table>
@@ -208,6 +236,12 @@
 
     <script type="text/javascript" src="http://admin.shop.com/Public/Admin/ztree/js/jquery.ztree.core-3.5.js"></script>
     <script type="text/javascript" src="http://admin.shop.com/Public/Admin/uploadify/jquery.uploadify.js"></script>
+    <script type="text/javascript" charset="utf-8" src="http://admin.shop.com/Public/Admin/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="http://admin.shop.com/Public/Admin/ueditor/ueditor.all.min.js"> </script>
+    <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+    <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+    <script type="text/javascript" charset="utf-8" src="http://admin.shop.com/Public/Admin/ueditor/lang/zh-cn/zh-cn.js"></script>
+
     <script type="text/javascript">
         $(function() {
             $('.is_on_sale').val([1]);
@@ -223,6 +257,20 @@
                 $('form>table').hide();
                 var index = $(this).index();//代表点击的第几个span
                 $('form>table').eq(index).show();
+
+
+                 if(index==1){
+                     /////////////////////////////商品描述在线编辑器   开始////////////////////////////////////////////
+                     UE.getEditor('intro',{
+                         /*  toolbars: [
+                          ['fullscreen', 'source', 'undo', 'redo', 'bold']
+                          ],*/
+                          //initialFrameWidth:1000,  //初始化编辑器宽度,默认1000
+                         initialFrameHeight:500  //初始化编辑器高度,默认320
+                     });
+                     /////////////////////////////商品描述在线编辑器   结束////////////////////////////////////////////
+                 }
+
             });
             /////////////////////////////切换特效   结束////////////////////////////////////////////
 
@@ -280,11 +328,11 @@
                     'fileSizeLimit' : '100KB',  //限制大小
 //            'fileObjName' : 'the_files',  //上传文件时, name的值 ,  默认值为  Filedata     $_FIELS['Filedata']
                     'formData'      : {'dir' : 'goods'},   //通过post方式传递的额外参数 ,, dir表示上传到又拍云的空间  itsource_ $dir的值
-                    'multi'    : true,   //是否支持多文件上传
+                    'multi'    : false,   //是否支持多文件上传
                     'onUploadSuccess' : function(file, data, response) {   //上传成功时执行的方法
                         $('.logo').val(data);
                         $('.upload-img-box').show();
-                        $('.upload-img-box img').attr('src',"http://itsource-goods.b0.upaiyun.com/"+data);
+                        $('.upload-logo-box img').attr('src',"http://itsource-goods.b0.upaiyun.com/"+data);
                     },
                     'onUploadError' : function(file, errorCode, errorMsg, errorString) {   //上传失败时该方法执行
                         alert('该文件上传失败!错误信息为:' + errorString);
@@ -307,6 +355,103 @@
                }
               $('.goods_status').val(goods_status_values);<?php endif; ?>
             /////////////////////////////编辑时回显商品状态   结束////////////////////////////////////////////
+
+            /////////////////////////////商品相册的上传插件   开始////////////////////////////////////////////
+            window.setTimeout(function(){                 //让上传表单10毫秒之后再加载..
+                $("#upload-gallery").uploadify({
+                    height        : 25,    //指定删除插件的高和宽
+                    width         : 145,
+                    swf           : 'http://admin.shop.com/Public/Admin/uploadify/uploadify.swf',  //指定swf的地址
+                    uploader      : '<?php echo U("Uploader/index");?>',   //在服务器上处理上传的代码
+                    'buttonText' : '选择图片',   //上传按钮上面的文字
+                    'fileSizeLimit' : '100KB',  //限制大小
+//            'fileObjName' : 'the_files',  //上传文件时, name的值 ,  默认值为  Filedata     $_FIELS['Filedata']
+                    'formData'      : {'dir' : 'goods'},   //通过post方式传递的额外参数 ,, dir表示上传到又拍云的空间  itsource_ $dir的值
+                    'multi'    : true,   //是否支持多文件上传
+                    'onUploadSuccess' : function(file, data, response) {   //上传成功时执行的方法
+                        var itemHtml = '<div class="upload-pre-item" style="display: inline-block">\
+                                <img src="http://itsource-goods.b0.upaiyun.com/'+data+'">\
+                                <input type="hidden" name="gallery_path[]" value="'+data+'!m"/> \
+                                <a href="javascript:;">X</a>\
+                                </div>';
+                         $(itemHtml).appendTo('.upload-gallery-box');
+
+                    },
+                    'onUploadError' : function(file, errorCode, errorMsg, errorString) {   //上传失败时该方法执行
+                        alert('该文件上传失败!错误信息为:' + errorString);
+                    }
+                });
+            },10)
+
+            //删除商品相册的数据
+            $('.upload-gallery-box').on('click','a',function(){
+                   //>>1.判定该图片是否在数据库中存在
+                    var dbid = $(this).attr('dbid');
+                    if(dbid){
+                        var that = $(this);
+                        //>>2. 如果存在,需要发送ajax请求让服务器删除数据库中数据
+                        $.post('<?php echo U("deleteGallery");?>',{gallery_id:dbid},function(data){
+                                if(data.success){
+                                    that.closest('div').remove();
+                                }
+                        });
+                    }else{
+                        //>>3.如果不存在直接从页面上删除
+                        $(this).closest('div').remove();
+                    }
+
+
+
+            })
+            /////////////////////////////商品相册的上传插件   结束////////////////////////////////////////////
+            /////////////////////////////关联文章   开始////////////////////////////////////////////
+            $('.keyword').keypress(function(event){
+                if(event.keyCode==13){
+                    loadArticle();
+                    return false;  //当按回车键的时候取消默认操作
+                }
+            });
+            $('.search_article').click(function(){
+                loadArticle();
+            });
+
+            //根据关键字查询文章
+            function loadArticle(){
+                $('.left_select').empty();
+                //发送ajax请求
+                $.getJSON('<?php echo U("Article/search");?>',{keyword:$('.keyword').val()},function(rows){
+                    var option_html = '';
+                    $(rows).each(function(){
+                        option_html+="<option value='"+this.id+"'>"+this.name+"</option>"
+                    });
+                    $(option_html).appendTo(".left_select");
+
+                });
+            }
+
+
+            $(".left_select").on('dblclick','option',function(){
+                    $(this).appendTo('.right_select');
+                    select2Hidden();
+            });
+            $('.right_select').on('dblclick','option',function(){
+                 $(this).appendTo('.left_select');
+                 select2Hidden();
+            });
+
+
+            //将右边的下拉框中的内容取出生成隐藏域,放到class='selectedOption'的div中
+            function select2Hidden(){
+                var hiddenHtml = '';
+                $('.right_select option').each(function(){
+                    hiddenHtml+="<input type='hidden' name='article_id[]' value='"+this.value+"'/>"
+                });
+                $('.selectedOption').empty();//将隐藏域放到div中之前先清空
+                $(hiddenHtml).appendTo(".selectedOption");
+            }
+            /////////////////////////////关联文章   结束////////////////////////////////////////////
+
+
 
         })
     </script>

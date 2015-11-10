@@ -24,8 +24,15 @@ class GoodsModel extends BaseModel
         array('sort','require','排序不能够为空!'),
     );
 
+    /**
+     * @param mixed|string $requestData   请求中的所有数据
+     * @return bool|mixed
+     *
+     * $this->data是通过create方法收集的数据, 该数据已经被过滤和自动完成处理了
+     * $requestData: 请求中的所有数据
+     */
+    public function add($requestData){
 
-    public function add(){
         $this->startTrans();//开启事务
         //>>1.处理请求中的商品状态 转换为 一个整数
          $this->handleGoodsStatus();
@@ -43,17 +50,120 @@ class GoodsModel extends BaseModel
             return false;
         }
 
+        //>>4.处理商品简介
+        $result = $this->handleGoodsIntro($id,$requestData['intro']);
+        if($result===false){
+            return false;
+        }
+        //>>5.处理商品相册
+        $result = $this->handleGoodsGallery($id,$requestData['gallery_path']);  //$requestData['gallery']
+        if($result===false){
+            return false;
+        }
+
+        //>>6.处理关联文章
+        $result = $this->handleGoodsArticle($id,$requestData['article_id']);
+        if($result===false){
+            return false;
+        }
+
+
         $this->commit();
         return $id;  //保存成功之后返回id
     }
 
+    /**
+     * 根据商品的id和选中的关联文章的id保存到goods_article表中
+     * @param $id
+     * @param $article_ids
+     */
+    private function handleGoodsArticle($id,$article_ids){
+
+       $rows = array();
+       foreach($article_ids as $article_id){
+           $rows[] =  array('goods_id'=>$id,'article_id'=>$article_id);
+       }
+        if(!empty($rows)){
+            $goodsArticleModel = M('GoodsArticle');
+            $goodsArticleModel->where(array('goods_id'=>$id))->delete();  //先删除再添加,完成更新的功能
+            $result  = $goodsArticleModel->addAll($rows);
+            if($result===false){
+                $this->rollback();
+                $this->error = '保存相关文章失败!';
+                return false;
+            }
+        }
+    }
+
+    /**
+     * 将用户上传上来的图片保存保存到goods_gallery表中
+     * @param $id   商品id
+     * @param $gallery_paths   图片路径
+     * @return bool
+     */
+    private function handleGoodsGallery($id,$gallery_paths){
 
 
-    public function save(){
+        //每准备一个小数组将其放到rows中
+        $rows = array();
+        foreach($gallery_paths as $gallery_path){
+            $rows[]=array('goods_id'=>$id,'path'=>$gallery_path);
+        }
+        if(!empty($rows)){
+            $goodsGalleryModel = M('GoodsGallery');
+            $result = $goodsGalleryModel->addAll($rows);   //一次性保存多行数据
+            if($result===false){
+                $this->rollback();
+                $this->error  = '保存图片出错!';
+                return false;
+            }
+        }
+    }
+
+    /**
+     * 根据请求中的所有数据进行更新
+     * @param mixed|string $requestData  请求中的所有数据
+     * @return bool
+     */
+    public function save($requestData){
+        $this->startTrans();
         //>>1.计算商品状态
         $this->handleGoodsStatus();
-        //>>2.进行更新
-        return parent::save();
+
+        //>>2.需要将请求中的商品描述goods_intro中
+       /* $goodsIntroModel = M('GoodsIntro');
+        $result = $goodsIntroModel->where(array('goods_id'=>$this->data['id']))->setField('intro',$requestData['intro']);
+        if($result===false){
+            $this->rollback();
+            $this->error = '商品描述更新失败!';
+            return false;
+        }*/
+          $result = $this->handleGoodsIntro($this->data['id'],$requestData['intro']);
+          if($result===false){
+              return false;
+          }
+
+        //>>3.处理商品相册
+        $result = $this->handleGoodsGallery($this->data['id'],$requestData['gallery_path']);
+        if($result===false){
+            return false;
+        }
+
+
+        //>>4.处理关联文章
+        $result = $this->handleGoodsArticle($this->data['id'],$requestData['article_id']);
+        if($result===false){
+            return false;
+        }
+
+        //>>3.进行更新
+        $result = parent::save();
+        if($result===false){
+            $this->rollback();
+            return false;
+        }
+        $this->commit(); //提交事物
+        return $result;
     }
 
     /**
@@ -68,6 +178,27 @@ class GoodsModel extends BaseModel
         }
         $this->data['goods_status'] = $goods_status;
     }
+
+
+    /**
+     * 处理上面描述
+     * @param $goods_id  商品的id
+     * @param $intro     商品的简介
+     * @return bool
+     */
+    private  function handleGoodsIntro($goods_id,$intro){
+        $goodsIntroModel = M('GoodsIntro');
+        //先删除原来的,再保存新的, 如果没有原来的无法不用删除
+        $goodsIntroModel->where(array('goods_id'=>$goods_id))->delete();
+        $result = $goodsIntroModel->add(array('goods_id'=>$goods_id,'intro'=>$intro));
+        if($result===false){
+            $this->rollback();
+            $this->error = '保存商品描述失败!';
+            return false;
+        }
+    }
+
+
 
 
 }

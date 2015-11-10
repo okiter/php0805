@@ -1,0 +1,178 @@
+[ 2015-11-10T09:26:10+08:00 ] 192.168.1.5 /index.php/Supplier/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000031s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000829s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000755s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000853s ]
+SQL: SHOW COLUMNS FROM `supplier` [ RunTime:0.0025s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `supplier` WHERE `status` <> -1 LIMIT 1   [ RunTime:0.0018s ]
+SQL: SELECT * FROM `supplier` WHERE `status` <> -1 LIMIT 0,5   [ RunTime:0.0002s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.003395s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.003846s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.015832s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.016150s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001052s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001178s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000960s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001014s ]
+
+[ 2015-11-10T09:26:11+08:00 ] 192.168.1.5 /favicon.ico
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000024s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000330s ]
+
+[ 2015-11-10T09:26:13+08:00 ] 192.168.1.5 /index.php/Goods
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000053s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000491s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000375s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000439s ]
+NOTIC: [2048] Declaration of Admin\Model\GoodsModel::add() should be compatible with Think\Model::add($data = '', $options = Array, $replace = false) /home/www/shop/admin.shop.com/Application/Admin/Model/GoodsModel.class.php 第 8 行.
+NOTIC: [2048] Declaration of Admin\Model\GoodsModel::save() should be compatible with Think\Model::save($data = '', $options = Array) /home/www/shop/admin.shop.com/Application/Admin/Model/GoodsModel.class.php 第 8 行.
+SQL: SHOW COLUMNS FROM `goods` [ RunTime:0.0022s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `goods` WHERE `status` <> -1 LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT * FROM `goods` WHERE `status` <> -1 LIMIT 0,5   [ RunTime:0.0004s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000185s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000365s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.009352s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.009503s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000379s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000665s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000344s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000634s ]
+
+[ 2015-11-10T09:26:16+08:00 ] 192.168.1.5 /index.php/Goods/edit/id/6.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000015s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000305s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.003324s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003695s ]
+NOTIC: [2048] Declaration of Admin\Model\GoodsModel::add() should be compatible with Think\Model::add($data = '', $options = Array, $replace = false) /home/www/shop/admin.shop.com/Application/Admin/Model/GoodsModel.class.php 第 8 行.
+NOTIC: [2048] Declaration of Admin\Model\GoodsModel::save() should be compatible with Think\Model::save($data = '', $options = Array) /home/www/shop/admin.shop.com/Application/Admin/Model/GoodsModel.class.php 第 8 行.
+SQL: SHOW COLUMNS FROM `goods` [ RunTime:0.0019s ]
+SQL: SELECT * FROM `goods` WHERE `id` = 6 LIMIT 1   [ RunTime:0.0006s ]
+NOTIC: [2048] Declaration of Admin\Model\GoodsCategoryModel::add() should be compatible with Think\Model::add($data = '', $options = Array, $replace = false) /home/www/shop/admin.shop.com/Application/Admin/Model/GoodsCategoryModel.class.php 第 69 行.
+NOTIC: [2048] Declaration of Admin\Model\GoodsCategoryModel::save() should be compatible with Think\Model::save($data = '', $options = Array) /home/www/shop/admin.shop.com/Application/Admin/Model/GoodsCategoryModel.class.php 第 69 行.
+SQL: SHOW COLUMNS FROM `goods_category` [ RunTime:0.0095s ]
+SQL: SELECT * FROM `goods_category` WHERE ( status>=0 ) ORDER BY lft  [ RunTime:0.0008s ]
+SQL: SHOW COLUMNS FROM `brand` [ RunTime:0.0017s ]
+SQL: SELECT * FROM `brand` WHERE `status` = 1 ORDER BY sort  [ RunTime:0.0013s ]
+SQL: SHOW COLUMNS FROM `supplier` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `supplier` WHERE `status` = 1 ORDER BY sort  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `goods_intro` [ RunTime:0.0015s ]
+SQL: SELECT `intro` FROM `goods_intro` WHERE `goods_id` = 6 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `goods_gallery` [ RunTime:0.0027s ]
+SQL: SELECT `id`,`path` FROM `goods_gallery` WHERE `goods_id` = 6  [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `goods_article` [ RunTime:0.0022s ]
+SQL: SELECT  a.id,a.name  FROM goods_article as ga  join article as a on ga.article_id = a.id  where  ga.goods_id = 6; [ RunTime:0.0017s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001037s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001100s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.016568s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.016621s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000142s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000179s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000891s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001215s ]
+
+[ 2015-11-10T09:26:17+08:00 ] 192.168.1.5 /index.php/Goods/edit/id/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000029s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000518s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000279s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000312s ]
+NOTIC: [2048] Declaration of Admin\Model\GoodsModel::add() should be compatible with Think\Model::add($data = '', $options = Array, $replace = false) /home/www/shop/admin.shop.com/Application/Admin/Model/GoodsModel.class.php 第 8 行.
+NOTIC: [2048] Declaration of Admin\Model\GoodsModel::save() should be compatible with Think\Model::save($data = '', $options = Array) /home/www/shop/admin.shop.com/Application/Admin/Model/GoodsModel.class.php 第 8 行.
+SQL: SHOW COLUMNS FROM `goods` [ RunTime:0.0008s ]
+SQL: SELECT * FROM `goods` WHERE `id` = 0 LIMIT 1   [ RunTime:0.0009s ]
+NOTIC: [2048] Declaration of Admin\Model\GoodsCategoryModel::add() should be compatible with Think\Model::add($data = '', $options = Array, $replace = false) /home/www/shop/admin.shop.com/Application/Admin/Model/GoodsCategoryModel.class.php 第 69 行.
+NOTIC: [2048] Declaration of Admin\Model\GoodsCategoryModel::save() should be compatible with Think\Model::save($data = '', $options = Array) /home/www/shop/admin.shop.com/Application/Admin/Model/GoodsCategoryModel.class.php 第 69 行.
+SQL: SHOW COLUMNS FROM `goods_category` [ RunTime:0.0013s ]
+SQL: SELECT * FROM `goods_category` WHERE ( status>=0 ) ORDER BY lft  [ RunTime:0.0005s ]
+SQL: SHOW COLUMNS FROM `brand` [ RunTime:0.0010s ]
+SQL: SELECT * FROM `brand` WHERE `status` = 1 ORDER BY sort  [ RunTime:0.0008s ]
+SQL: SHOW COLUMNS FROM `supplier` [ RunTime:0.0008s ]
+SQL: SELECT * FROM `supplier` WHERE `status` = 1 ORDER BY sort  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `goods_intro` [ RunTime:0.0004s ]
+SQL: SELECT `intro` FROM `goods_intro` WHERE `goods_id` = 0 LIMIT 1   [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `goods_gallery` [ RunTime:0.0005s ]
+SQL: SELECT `id`,`path` FROM `goods_gallery` WHERE `goods_id` = 0  [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `goods_article` [ RunTime:0.0004s ]
+ERR: 1054:Unknown column 'index.php' in 'where clause'
+ [ SQL语句 ] : SELECT  a.id,a.name  FROM goods_article as ga  join article as a on ga.article_id = a.id  where  ga.goods_id = index.php;
+ERR: 1054:Unknown column 'index.php' in 'where clause'
+ [ SQL语句 ] : SELECT  a.id,a.name  FROM goods_article as ga  join article as a on ga.article_id = a.id  where  ga.goods_id = index.php;
+
+[ 2015-11-10T09:26:21+08:00 ] 192.168.1.5 /index.php/Goods/edit/id/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000034s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000383s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000566s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000738s ]
+NOTIC: [2048] Declaration of Admin\Model\GoodsModel::add() should be compatible with Think\Model::add($data = '', $options = Array, $replace = false) /home/www/shop/admin.shop.com/Application/Admin/Model/GoodsModel.class.php 第 8 行.
+NOTIC: [2048] Declaration of Admin\Model\GoodsModel::save() should be compatible with Think\Model::save($data = '', $options = Array) /home/www/shop/admin.shop.com/Application/Admin/Model/GoodsModel.class.php 第 8 行.
+SQL: SHOW COLUMNS FROM `goods` [ RunTime:0.0007s ]
+SQL: SELECT * FROM `goods` WHERE `id` = 0 LIMIT 1   [ RunTime:0.0006s ]
+NOTIC: [2048] Declaration of Admin\Model\GoodsCategoryModel::add() should be compatible with Think\Model::add($data = '', $options = Array, $replace = false) /home/www/shop/admin.shop.com/Application/Admin/Model/GoodsCategoryModel.class.php 第 69 行.
+NOTIC: [2048] Declaration of Admin\Model\GoodsCategoryModel::save() should be compatible with Think\Model::save($data = '', $options = Array) /home/www/shop/admin.shop.com/Application/Admin/Model/GoodsCategoryModel.class.php 第 69 行.
+SQL: SHOW COLUMNS FROM `goods_category` [ RunTime:0.0004s ]
+SQL: SELECT * FROM `goods_category` WHERE ( status>=0 ) ORDER BY lft  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `brand` [ RunTime:0.0007s ]
+SQL: SELECT * FROM `brand` WHERE `status` = 1 ORDER BY sort  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `supplier` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `supplier` WHERE `status` = 1 ORDER BY sort  [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `goods_intro` [ RunTime:0.0005s ]
+SQL: SELECT `intro` FROM `goods_intro` WHERE `goods_id` = 0 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `goods_gallery` [ RunTime:0.0008s ]
+SQL: SELECT `id`,`path` FROM `goods_gallery` WHERE `goods_id` = 0  [ RunTime:0.0005s ]
+SQL: SHOW COLUMNS FROM `goods_article` [ RunTime:0.0004s ]
+ERR: 1054:Unknown column 'index.php' in 'where clause'
+ [ SQL语句 ] : SELECT  a.id,a.name  FROM goods_article as ga  join article as a on ga.article_id = a.id  where  ga.goods_id = index.php;
+ERR: 1054:Unknown column 'index.php' in 'where clause'
+ [ SQL语句 ] : SELECT  a.id,a.name  FROM goods_article as ga  join article as a on ga.article_id = a.id  where  ga.goods_id = index.php;
+
+[ 2015-11-10T09:26:22+08:00 ] 192.168.1.5 /index.php/Goods/edit/id/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000059s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000327s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000366s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000466s ]
+NOTIC: [2048] Declaration of Admin\Model\GoodsModel::add() should be compatible with Think\Model::add($data = '', $options = Array, $replace = false) /home/www/shop/admin.shop.com/Application/Admin/Model/GoodsModel.class.php 第 8 行.
+NOTIC: [2048] Declaration of Admin\Model\GoodsModel::save() should be compatible with Think\Model::save($data = '', $options = Array) /home/www/shop/admin.shop.com/Application/Admin/Model/GoodsModel.class.php 第 8 行.
+SQL: SHOW COLUMNS FROM `goods` [ RunTime:0.0014s ]
+SQL: SELECT * FROM `goods` WHERE `id` = 0 LIMIT 1   [ RunTime:0.0012s ]
+NOTIC: [2048] Declaration of Admin\Model\GoodsCategoryModel::add() should be compatible with Think\Model::add($data = '', $options = Array, $replace = false) /home/www/shop/admin.shop.com/Application/Admin/Model/GoodsCategoryModel.class.php 第 69 行.
+NOTIC: [2048] Declaration of Admin\Model\GoodsCategoryModel::save() should be compatible with Think\Model::save($data = '', $options = Array) /home/www/shop/admin.shop.com/Application/Admin/Model/GoodsCategoryModel.class.php 第 69 行.
+SQL: SHOW COLUMNS FROM `goods_category` [ RunTime:0.0030s ]
+SQL: SELECT * FROM `goods_category` WHERE ( status>=0 ) ORDER BY lft  [ RunTime:0.0009s ]
+SQL: SHOW COLUMNS FROM `brand` [ RunTime:0.0009s ]
+SQL: SELECT * FROM `brand` WHERE `status` = 1 ORDER BY sort  [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `supplier` [ RunTime:0.0019s ]
+SQL: SELECT * FROM `supplier` WHERE `status` = 1 ORDER BY sort  [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `goods_intro` [ RunTime:0.0004s ]
+SQL: SELECT `intro` FROM `goods_intro` WHERE `goods_id` = 0 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `goods_gallery` [ RunTime:0.0004s ]
+SQL: SELECT `id`,`path` FROM `goods_gallery` WHERE `goods_id` = 0  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `goods_article` [ RunTime:0.0004s ]
+ERR: 1054:Unknown column 'index.php' in 'where clause'
+ [ SQL语句 ] : SELECT  a.id,a.name  FROM goods_article as ga  join article as a on ga.article_id = a.id  where  ga.goods_id = index.php;
+ERR: 1054:Unknown column 'index.php' in 'where clause'
+ [ SQL语句 ] : SELECT  a.id,a.name  FROM goods_article as ga  join article as a on ga.article_id = a.id  where  ga.goods_id = index.php;
+
