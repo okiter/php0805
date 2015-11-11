@@ -70,7 +70,7 @@ class NestedSetsService {
 	 * Class constructor
 	 *
 	 * @access public
-	 * @param \MediaCore\Lib\Db\Db $Db an instance of Db class for manipulating with database
+	 * @param \Admin\Model\DbMysqlInterfaceModel $Db an instance of Db class for manipulating with database
 	 * @param string $table_name table name
 	 * @param string|null $left_key left key field name
 	 * @param string|null $right_key right key field name
@@ -295,7 +295,6 @@ class NestedSetsService {
 		if (!$item) {
 			return false;
 		}
-
 		$parent = $this->getItem($parent_id);
 
 		// if position is root node
@@ -317,7 +316,6 @@ class NestedSetsService {
 				$near_key = $parent[$this->rightKey] - 1;
 			}
 		}
-
 		// move item
 		return $this->move($id, $parent_id, $near_key, $level);
 	}
@@ -372,8 +370,8 @@ class NestedSetsService {
 			return false;
 		}
 
-		// check possibility
-		if ($near_key >= $item[$this->leftKey] && $near_key <= $item[$this->rightKey]) {
+		// check possibility    在这里将>= 和<= 修改为  > 和<
+		if ($near_key > $item[$this->leftKey] && $near_key < $item[$this->rightKey]) {
 			return false;
 		}
 

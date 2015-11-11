@@ -13,6 +13,11 @@ use Think\Controller;
 class BaseController extends Controller
 {
     protected $model;
+    /**
+     * add方法中是否使用到post请求中的所有数据
+     * @var bool
+     */
+    protected $usePostAllParams = false;
 
     public function _initialize()
     {
@@ -48,13 +53,14 @@ class BaseController extends Controller
         $this->display('index');
     }
 
+
     public function add()
     {
         if (IS_POST) {
             //>>1.使用模型中的create方法收集并且验证, 自动完成
             if ($this->model->create() !== false) {
                 //>>3.添加到数据库中
-                if ($this->model->add() !== false) {
+                if ($this->model->add($this->usePostAllParams?I('post.'):'') !== false) {
                     $this->success('添加成功!', cookie('__forward__'));
                     return;  //防止后面的代码执行.
                 }
@@ -79,7 +85,7 @@ class BaseController extends Controller
         if (IS_POST) {
             //>>1.收集更新的数据
             if ($this->model->create() !== false) {
-                if ($this->model->save() !== false) {
+                if ($this->model->save($this->usePostAllParams?I('post.'):'') !== false) {
                     $this->success('更新成功!', cookie('__forward__'));
                     return;
                 }

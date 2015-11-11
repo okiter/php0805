@@ -62,3 +62,42 @@ function arr2select($name,$rows,$defaultValue,$fieldValue='id',$fieldName='name'
     $html.="</select>";
     echo $html;
 }
+
+
+/**
+ * 如果传递的有用户信息, 将用户信息保存到session,
+ * 如果没有用户信息,  是从session获取用户信息
+ * @param $userinfo
+ */
+function login($userinfo=null){
+    if($userinfo){
+        session('USERINFO',$userinfo);
+    }else{
+        return session('USERINFO');
+    }
+}
+
+/**
+ * 判定用户是否登陆
+ * @return bool
+ */
+function isLogin(){
+    return login()!==null;
+}
+
+/**
+ * 将session中的用户信息请求
+ */
+function logout(){
+    session('USERINFO',null);
+}
+
+
+
+function savePermissionURL($urls=null){
+    if($urls){
+        session('PERMISSIONURL',$urls);
+    }else{
+        return session('PERMISSIONURL');
+    }
+}
