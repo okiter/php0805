@@ -12,6 +12,5 @@ return array(
         '__TREEGRID__' =>  WEB_URL.'/Public/Admin/treegrid',
         '__ZTREE__' =>  WEB_URL.'/Public/Admin/ztree',
         '__UEDITOR__' =>  WEB_URL.'/Public/Admin/ueditor',
-
     )
 );

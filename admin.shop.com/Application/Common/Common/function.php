@@ -86,18 +86,71 @@ function isLogin(){
 }
 
 /**
+ * 判定是否为超级管理员
+ */
+function isSuperUser(){
+        //>>1.得到当前的登陆用户
+        $userinfo  = login();
+        $username  = $userinfo['username'];
+        //>>2.获取配置中指定的超级用户的用户名
+        $super_name = C('SUPER_USER');
+        return $username == $super_name;
+}
+
+/**
  * 将session中的用户信息请求
  */
 function logout(){
     session('USERINFO',null);
+    session('PERMISSIONURL',null);
+    session('PERMISSIONID',null);
+    cookie('admin_id',null);
+    cookie('auto_key',null);
 }
 
 
-
+/**
+ * 将权限的url地址保存到session中
+ * @param null $urls
+ * @return mixed
+ */
 function savePermissionURL($urls=null){
     if($urls){
         session('PERMISSIONURL',$urls);
     }else{
         return session('PERMISSIONURL');
     }
+}
+
+/**
+ * 将权限的id保存到session中
+ * @param null $ids
+ * @return mixed
+ */
+function savePermissionId($ids=null){
+    if($ids){
+        session('PERMISSIONID',$ids);
+    }else{
+        return session('PERMISSIONID');
+    }
+}
+
+
+/**
+ * 通过分隔符将数组中的元素链接起来
+ * @param $arr
+ * @param string $seq
+ */
+function arr2str($arr,$seq = ','){
+    return  implode($seq,$arr);
+}
+
+/**
+ * 将字符串str通过seq的分隔符 分隔开
+ * @param $str
+ * @param string $seq
+ * @return array
+ */
+function str2arr($str,$seq=','){
+    return explode($seq,$str);
 }
