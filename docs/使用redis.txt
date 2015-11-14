@@ -1,3 +1,5 @@
+
+//////////////////////////redis的软件////////////////////////////////////////////
 1. 安装redis
   1.1 上传redis-3.0.2.tar.gz到/usr/local/src下
   1.2 解压
@@ -56,6 +58,10 @@
     service redis stop
 
 
+
+
+////////////////////让PHP代码从而操作Redis///////////////////////////////////////
+
 2.安装php的redis扩展
     2.1 下载
     https://github.com/phpredis/phpredis
@@ -65,6 +71,8 @@
 
     cd phpredis
     /usr/local/php/bin/phpize      这个phpize是安装php模块的
+
+    进行配置
     ./configure --with-php-config=/usr/local/php/bin/php-config
     make
     make install
