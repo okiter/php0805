@@ -154,3 +154,57 @@ function arr2str($arr,$seq = ','){
 function str2arr($str,$seq=','){
     return explode($seq,$str);
 }
+
+
+
+
+/**
+ * 发送邮件的方法
+ */
+function sendMail($mail_str,$title,$content){
+    $sendMailThread = new SendMailThread($mail_str,$title,$content);
+    $sendMailThread->start();
+//    $sendMailThread->detach();  如果加上这个方法是无法发送邮件
+}
+
+/**
+ * 发送邮件的线程类
+ * Class SendMailThread
+ */
+class SendMailThread  extends Thread{
+    private $mail_str;
+    private $title;
+    private $content;
+    public function __construct($mail_str,$title,$content){
+        $this->mail_str = $mail_str;
+        $this->title = $title;
+        $this->content = $content;
+    }
+
+    public function run(){
+        vendor('PHPMailer.PHPMailerAutoload');
+        $mail_config =  C('MAIL_CONFIG');
+        $mail = new \PHPMailer;
+        $mail->isSMTP();                                      // 设置发送邮件协议: SMTP
+        $mail->Host = $mail_config['Host'];                         // 设置邮件的服务器
+        $mail->SMTPAuth = true;                               // 开启授权
+        $mail->Username = $mail_config['Username'];              // 登陆用户的用户名
+        $mail->Password = $mail_config['Password'];                    // 登陆用户的密码
+
+        /////////////////////准备邮件内容///////////////////////////////////////
+        $mail->setFrom($mail_config['From'], 'NOReply');          //发件人
+
+        $mail->addAddress($this->mail_str);     // 收件人
+        //$mail->addAddress('ellen@example.com');               // Name is optional
+//            $mail->addReplyTo('itsource520@126.com', 'Information');
+
+        $mail->isHTML(true);                                  // 设置邮件为Html的邮件
+        $mail->CharSet = 'utf-8';                              //设置编码
+        $mail->Subject = $this->title;   //邮件的标题
+        $mail->Body    = $this->content;   //邮件的内容
+        if($mail->send()===false){
+            $this->error = $mail->ErrorInfo;
+            return false;
+        }
+    }
+}

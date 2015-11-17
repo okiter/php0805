@@ -17,4 +17,12 @@ return array(
     'REDIS_HOST'             => '127.0.0.1',
     'REDIS_PORT'             => 6379,
     'DATA_CACHE_PREFIX'      => 'itsource_',
+
+
+    'MAIL_CONFIG'            =>array(
+        'Host' => 'smtp.126.com',                    // 设置邮件的服务器
+        'Username' => 'itsource520@126.com',              // 登陆用户的用户名
+        'Password' => 'qqitsource520',
+        'From' => 'itsource520@126.com',
+        )
 );
