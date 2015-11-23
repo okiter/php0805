@@ -20,17 +20,36 @@ class BaseModel extends Model
     public function getPageResult($wheres = array())
     { //为什么使用默认值? 如果没有传入条件该方法继续被使用
         //>>3.准备一个数组专门来存放条件
-        $wheres['status'] = array('neq', -1);
+        $wheres['obj.status'] = array('neq', -1);
         //>>1.提供分页工具条
+        $this->alias('obj');
         $totalRows = $this->where($wheres)->count();  //获取总条数
         $listRows = C('PAGE_SIZE') ? C('PAGE_SIZE') : 10;
         $page = new Page($totalRows, $listRows);  //自己获取请求中的页面直接使用
         $pageHtml = $page->show();
 
         //>>2.提供当前列表数据
+        $this->alias('obj');
+        $this->_setModel(); //就会调用子类的_setModel中提供的代码
         $rows = $this->where($wheres)->limit($page->firstRow, $page->listRows)->select();
+        $this->_handleRows($rows);
         //>>3.返回包含分页工具条和分页列表数据的数组
         return array('pageHtml' => $pageHtml, 'rows' => $rows);
+    }
+
+    /**
+     * 该方法主要是被子类覆盖
+     */
+    protected function _setModel(){
+
+    }
+
+    /**
+     * 该方法主要是被子类覆盖, 对rows中的数据进一步处理
+     * @param $rows
+     */
+    protected function _handleRows(&$rows){
+
     }
 
     /**

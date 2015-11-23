@@ -24,6 +24,26 @@ class GoodsModel extends BaseModel
         array('sort','require','排序不能够为空!'),
     );
 
+
+    public function _setModel(){
+        $this->field('obj.*,gc.name as goods_category_name,b.name as brand_name,s.name as supplier_name');
+        $this->join('__GOODS_CATEGORY__ as gc on obj.goods_category_id = gc.id');
+        $this->join('__BRAND__ as b on obj.brand_id = b.id');
+        $this->join('__SUPPLIER__ as s on obj.supplier_id = s.id');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * @param mixed|string $requestData   请求中的所有数据
      * @return bool|mixed

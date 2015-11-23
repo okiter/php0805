@@ -47,7 +47,15 @@ class MemberController extends Controller
                 $result = $memberModel->login();
                 if(is_array($result)){
                     login($result);
-                    $this->success('登陆成功!',U('Index/index'));  //登陆成功之后跳转到首页
+
+                    //从cookie中获取到url
+                    $login_return_url = cookie('__LOGIN_RETURN_URL__');
+                    if(empty($login_return_url)){
+                        $login_return_url =  U('Index/index');
+                    }else{
+                        cookie('__LOGIN_RETURN_URL__',null);
+                    }
+                    $this->success('登陆成功!',$login_return_url);  //登陆成功之后跳转到首页
                 }else{
                     $this->error('登录失败!'.$memberModel->getError());
                 }
@@ -55,6 +63,11 @@ class MemberController extends Controller
         }else{
             $this->display();
         }
+    }
+
+    public function logout(){
+        logout();
+        $this->success('注销成功!',U('Index/index'));
     }
 
     /**
@@ -94,5 +107,16 @@ class MemberController extends Controller
         }else{
             $this->success('激活成功!',U('login'));
         }
+    }
+
+
+    /**
+     * 得到登陆的用户信息
+     */
+    public function getLoginInfo(){
+         if(isLogin()){
+                $userinfo = login();
+                $this->ajaxReturn($userinfo['username']);
+         }
     }
 }

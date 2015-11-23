@@ -83,7 +83,6 @@ class IndexController extends Controller
         $goods = $goodsModel->get($id);
         $this->assign($goods);
 
-
         $this->assign('isHiddenMenu', true);
         $this->assign('meta_title', "京西商城---".$goods['name']);
         $this->display('show');

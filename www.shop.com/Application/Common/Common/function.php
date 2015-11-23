@@ -208,3 +208,13 @@ class SendMailThread  extends Thread{
         }
     }
 }
+
+
+/**
+ * 链接上redis并且返回redis
+ */
+function getRedis(){
+    $redis = new \Redis();
+    $redis->connect('127.0.0.1');
+    return $redis;
+}

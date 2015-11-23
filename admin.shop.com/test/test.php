@@ -1,6 +1,11 @@
 <?php
 header('Content-Type: text/html;charset=utf-8');
 
+
+
+echo ltrim("goods_click_times:gsssme17","goods_click_times:");
+
+exit;
 //$name = '状态';
 $name = '状态@radio';
 $name = '状态@radio|1=是&0=否';

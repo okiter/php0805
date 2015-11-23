@@ -72,6 +72,10 @@ class MemberModel extends Model
                  }
                 //>>3.判定密码
                 if(md5($password.$row['salt'])==$row['password']){
+                     //登陆成功之后将cookie中的数据同步同数据库中
+                     defined('UID') or define('UID',$row['id']);
+                     $shoppingCarModel = D('ShoppingCar');
+                     $shoppingCarModel->cookie2DB();
                     return $row;   //返回用户信息
                 }else{
                     $this->error =  '密码出错!';

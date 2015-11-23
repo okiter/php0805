@@ -31,8 +31,10 @@ class BaseController extends Controller
         $wheres = array();
         $keyword = I('get.keyword');
         if (!empty($keyword)) {
-            $wheres['name'] = array('like', "%$keyword%");  // where name like $%keyword%
+            $wheres['obj.name'] = array('like', "%$keyword%");  // where name like $%keyword%
         }
+
+        $this->_setWheres($wheres);
 
         //>>2.使用模型中的select方法将数据查询出来
         /**
@@ -49,8 +51,25 @@ class BaseController extends Controller
         cookie('__forward__', $_SERVER['REQUEST_URI']);
 
         $this->assign('meta_title',$this->meta_title); //分配到列表页面上显示
+
+        $this->_before_index_view();
         //>>4.选择页面显示 display
         $this->display('index');
+    }
+
+    /**
+     * 主要是被子类覆盖,提供查询条件
+     * @param $wheres
+     */
+    protected function _setWheres(&$wheres){
+
+    }
+
+    /**
+     * 准备是被子类覆盖,为列表页面展示之前准备数据
+     */
+    protected function _before_index_view(){
+
     }
 
 

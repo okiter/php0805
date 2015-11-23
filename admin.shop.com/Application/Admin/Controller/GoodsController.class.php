@@ -8,6 +8,33 @@ class GoodsController extends BaseController
     protected $meta_title = '商品';
 
 
+    /**
+     * 根据请求中的内容为wheres准备查询条件
+     * @param $wheres
+     */
+    protected  function _setWheres(&$wheres){
+        $brand_id = I('get.brand_id');
+        if(!empty($brand_id)){
+            $wheres['obj.brand_id'] = $brand_id;
+        }
+        $supplier_id = I('get.supplier_id');
+        if(!empty($supplier_id)){
+            $wheres['obj.supplier_id'] = $supplier_id;
+        }
+    }
+
+
+    protected function _before_index_view(){
+        //>>1.准备品牌数据
+        $brandModel  =  D('Brand');
+        $brands  = $brandModel->getShowList();
+        $this->assign('brands',$brands);
+        //>>2.准备供货商数据
+        $supplierModel  =  D('Supplier');
+        $suppliers  = $supplierModel->getShowList();
+        $this->assign('suppliers',$suppliers);
+    }
+
     //页面展示之前被调用,向页面上分配数据
     protected function _before_edit_view(){
         //>>1.准备分类数据,分配到页面

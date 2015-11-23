@@ -13,5 +13,8 @@ define('RUNTIME_PATH',ROOT_PATH.'Runtime'.'/');
 define('APP_DEBUG',true);
 //>>7.绑定模型
 define('BIND_MODULE','Home');
+
+//define('HTML_PATH',ROOT_PATH.'Html/');  定义静态缓存文件存放的目录, 默认请求下 APP_PATH 的Html文件中
+
 //>>2.加载框架代码
 require THINK_PATH.'ThinkPHP.php';
