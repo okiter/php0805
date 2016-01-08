@@ -55,7 +55,7 @@ https://help.github.com/articles/generating-ssh-keys/
     4.1 生成代理代理的pid
     eval "$(ssh-agent -s)"
     4.2 将ssh的key作为代理
-
+     ssh-add ~/.ssh/id_rsa
 
 5. 需要将生成ssh的key保存到github的账号上(将ssh和github联系起来)
     5.1 注册和登陆github
